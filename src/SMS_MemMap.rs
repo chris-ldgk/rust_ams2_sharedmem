@@ -25,7 +25,7 @@
 
 // *** Types ***
 
-use std::{fmt, os::raw::c_char};
+use std::{os::raw::c_char};
 
 // Header version number to test against
 pub const SHARED_MEMORY_VERSION: usize = 13;
@@ -359,6 +359,6 @@ pub struct SharedMemory {
 pub fn from_slice_u8_to_SharedMemory(slice: &[u8]) -> &SharedMemory {
     let (head, body, _tail) = unsafe { slice.align_to::<SharedMemory>() };
     assert!(head.is_empty(), "Data was not aligned");
-    let my_struct = &body[0];
-    my_struct
+    let deserialized_struct = &body[0];
+    deserialized_struct
 }
